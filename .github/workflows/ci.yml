@@ -91,6 +91,8 @@ jobs:
       - name: Run build and test driver script
         shell: bash -l {0}
         working-directory: /home/Trilinos/build
+        env:
+          _INPUT_EXTRA_ARGS: ${{ inputs.extra-pr-driver-args }}
         run: |
           # python is python3 hackery
           pwd
@@ -137,12 +139,12 @@ jobs:
             skip_create_packageenabels=""
           fi
 
-          if [ -n "${{ inputs.extra-pr-driver-args }}" ]
-          then
-            extra_pr_driver_args="${{ inputs.extra-pr-driver-args }}"
-          else
-            extra_pr_driver_args=""
-          fi
+           if [ -n "$_INPUT_EXTRA_ARGS" ]
+           then
+             extra_pr_driver_args="$_INPUT_EXTRA_ARGS"
+           else
+             extra_pr_driver_args=""
+           fi
 
           python3 ${TRILINOS_DIR}/packages/framework/pr_tools/PullRequestLinuxDriverTest.py \
             --genconfig-build-name ${{ inputs.genconfig-string }} \

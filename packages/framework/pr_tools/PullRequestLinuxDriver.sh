@@ -270,7 +270,7 @@ fi
 
 if [[ ${extra_configure_args} ]]
 then
-    test_cmd_options+=( "--extra-configure-args=\"${extra_configure_args}\" ")
+    test_cmd_options+=( "--extra-configure-args=${extra_configure_args}" )
 fi
 
 if [[ ${GENCONFIG_BUILD_NAME} == *"gnu"* ]]
